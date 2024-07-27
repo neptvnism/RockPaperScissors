@@ -94,10 +94,46 @@
     });
 
     function playRound(playerSelection) {
-      playerChoice.textContent = playerSelection;
+      playerChoice.textContent = "";
+      computerChoice.textContent = "";
+      result.textContent = "";
+
+      // Countdown
+      let count = 3;
+      const countdownInterval = setInterval(() => {
+        playerChoice.textContent = count;
+        computerChoice.textContent = count;
+        count--;
+        if (count < 0) {
+          clearInterval(countdownInterval);
+          displayChoices(playerSelection);
+        }
+      }, 1000);
+    }
+
+    function displayChoices(playerSelection) {
       const computerSelection = getComputerChoice();
-      computerChoice.textContent = computerSelection;
-      result.textContent = determineWinner(playerSelection, computerSelection);
+
+      // Display ROCK, PAPER, SCISSORS
+      playerChoice.textContent = "🪨";
+      computerChoice.textContent = "🪨";
+      setTimeout(() => {
+        playerChoice.textContent = "📰";
+        computerChoice.textContent = "📰";
+        setTimeout(() => {
+          playerChoice.textContent = "✂️";
+          computerChoice.textContent = "✂️";
+          setTimeout(() => {
+            playerChoice.textContent = "💥";
+            computerChoice.textContent = "💥";
+            setTimeout(() => {
+              playerChoice.textContent = playerSelection;
+              computerChoice.textContent = computerSelection;
+              result.textContent = determineWinner(playerSelection, computerSelection);
+            }, 500); // Delay after "GO!"
+          }, 500); // Delay after "SCISSORS"
+        }, 500); // Delay after "PAPER"
+      }, 500); // Delay after "ROCK"
     }
   </script>
 </body>
