@@ -52,5 +52,53 @@
     <button id="scissors">✂️</button>
   </div>
   <div id="result"></div>
+  <script>
+    const choices = ["🪨", "📰", "✂️"];
+
+    const playerChoice = document.getElementById("player-choice");
+    const computerChoice = document.getElementById("computer-choice");
+    const result = document.getElementById("result");
+
+    const rockButton = document.getElementById("rock");
+    const paperButton = document.getElementById("paper");
+    const scissorsButton = document.getElementById("scissors");
+
+    function getComputerChoice() {
+      return choices[Math.floor(Math.random() * choices.length)];
+    }
+
+    function determineWinner(player, computer) {
+      if (player === computer) {
+        return "It's a tie!";
+      } else if (
+        (player === "🪨" && computer === "✂️") ||
+        (player === "📰" && computer === "🪨") ||
+        (player === "✂️" && computer === "📰")
+      ) {
+        return "You win!";
+      } else {
+        return "Computer wins!";
+      }
+    }
+
+    rockButton.addEventListener("click", () => {
+      playRound("🪨");
+    });
+
+    paperButton.addEventListener("click", () => {
+      playRound("📰");
+    });
+
+    scissorsButton.addEventListener("click", () => {
+      playRound("✂️");
+    });
+
+    function playRound(playerSelection) {
+      playerChoice.textContent = playerSelection;
+      const computerSelection = getComputerChoice();
+      computerChoice.textContent = computerSelection;
+      result.textContent = determineWinner(playerSelection, computerSelection);
+    }
+  </script>
 </body>
 </html>
